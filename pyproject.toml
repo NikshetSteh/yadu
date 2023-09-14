@@ -4,7 +4,7 @@ version = "0.0.1"
 authors = [
   { name="Nikshet", email="nikshetsteh@gmail.com" },
 ]
-description = "Yandex Alice dialogs utility"
+description = "Yandex Alice Dialogs Utility"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
