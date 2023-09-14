@@ -1,8 +1,7 @@
 import sys
 
-path = '/path/to/application'
+path = 'path/to/project'
 if path not in sys.path:
     sys.path.append(path)
 
-# noinspection PyUnresolvedReferences
 from main import application

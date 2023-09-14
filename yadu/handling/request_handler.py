@@ -67,7 +67,9 @@ class RequestHandler:
 
         return InternetResponse(response_data)
 
-    def apply_post_processing(self, response: yadu.types.response.Response, now_state: Optional[State]) -> yadu.types.response.Response:
+    def apply_post_processing(self,
+                              response: yadu.types.response.Response,
+                              now_state: Optional[State]) -> yadu.types.response.Response:
         for i in self.post_processing_functions:
             response = i.process(response, response.skill_state, now_state)
 

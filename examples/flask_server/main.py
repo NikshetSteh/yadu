@@ -2,10 +2,9 @@ import random
 from typing import Optional
 
 from yadu import *
-from yadu.server.aiohttp_pythonanywhere_server import PythonAnywhereServer
+from server import FlaskServer
 
-server = PythonAnywhereServer()
-
+server = FlaskServer(debug_mode=True)
 bot = Bot(using_server=server)
 
 
@@ -35,9 +34,8 @@ class MainState(State):
             response = Response(text=f"Random number: {self.random_number}. Request: {request.user_request.command}",
                                 skill_state=request.skill_state)
         else:
-            response = Response(
-                text=f"Random number: {self.random_number}. Last request: {self.last_message}. Request: {request.user_request.command}",
-                skill_state=request.skill_state)
+            response = Response(text=f"Random number: {self.random_number}. Last request: {self.last_message}." +
+                                     "Request: {request.user_request.command}", skill_state=request.skill_state)
 
         self.last_message = request.user_request.command
         return response, self
@@ -62,7 +60,8 @@ class MyPostProcessing(ResponsePostProcessing):
 
 class MyTrigger(Trigger):
     async def on_new_message(self, message: ApiRequest) -> Optional[Response]:
-        if isinstance(message.user_request, ButtonPressedUserRequest) and message.user_request.payload["my_button_id"] == "ABOUT_SKILL":
+        if isinstance(message.user_request, ButtonPressedUserRequest) and \
+                message.user_request.payload["my_button_id"] == "ABOUT_SKILL":
             return Response(text="This is description of my skill", skill_state=message.skill_state)
         return None
 
