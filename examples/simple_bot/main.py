@@ -17,7 +17,8 @@ class HelloState(State):
 
     async def on_get_message(self, message: ApiRequest) -> tuple[Response, State]:
         random_number = random.randint(0, 100)
-        return Response(text=f"Hello, world! Random number: {random_number}", skill_state=message.skill_state), MainState(random_number)
+        return Response(text=f"Hello, world! Random number: {random_number}",
+                        skill_state=message.skill_state), MainState(random_number)
 
 
 @bot.state("MainState")
@@ -28,9 +29,11 @@ class MainState(State):
 
     async def on_get_message(self, request: ApiRequest) -> tuple[Response, State]:
         if self.last_message == "":
-            response = Response(text=f"Random number: {self.random_number}. Request: {request.user_request.command}", skill_state=request.skill_state)
+            response = Response(text=f"Random number: {self.random_number}. Request: {request.user_request.command}",
+                                skill_state=request.skill_state)
         else:
-            response = Response(text=f"Random number: {self.random_number}. Last request: {self.last_message}. Request: {request.user_request.command}", skill_state=request.skill_state)
+            response = Response(text=f"Random number: {self.random_number}. Last request: {self.last_message}." +
+                                     f"Request: {request.user_request.command}", skill_state=request.skill_state)
 
         self.last_message = request.user_request.command
         return response, self
@@ -55,7 +58,8 @@ class MyPostProcessing(ResponsePostProcessing):
 
 class MyTrigger(Trigger):
     async def on_new_message(self, message: ApiRequest) -> Optional[Response]:
-        if isinstance(message.user_request, ButtonPressedUserRequest) and message.user_request.payload["my_button_id"] == "ABOUT_SKILL":
+        if isinstance(message.user_request, ButtonPressedUserRequest) and \
+                message.user_request.payload["my_button_id"] == "ABOUT_SKILL":
             return Response(text="This is description of my skill", skill_state=message.skill_state)
         return None
 

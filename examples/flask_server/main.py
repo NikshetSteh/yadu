@@ -4,7 +4,7 @@ from typing import Optional
 from yadu import *
 from server import FlaskServer
 
-server = FlaskServer(debug_mode=True)
+server = FlaskServer(debug_mode=False)
 bot = Bot(using_server=server)
 
 
@@ -35,7 +35,7 @@ class MainState(State):
                                 skill_state=request.skill_state)
         else:
             response = Response(text=f"Random number: {self.random_number}. Last request: {self.last_message}." +
-                                     "Request: {request.user_request.command}", skill_state=request.skill_state)
+                                     f"Request: {request.user_request.command}", skill_state=request.skill_state)
 
         self.last_message = request.user_request.command
         return response, self
