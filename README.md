@@ -22,6 +22,7 @@ You can see some examples in folder `examples`
 - [ ] Implement auto-repeat feature
 - [ ] Create tests
 - [ ] Add support for different types of session state repositories
+- [ ] Convenient storage of various answers
 
 
 ## Developer contacts

@@ -2,8 +2,10 @@ import random
 from typing import Optional
 
 from yadu import *
+from server import FlaskServer
 
-bot = Bot()
+server = FlaskServer(debug_mode=False)
+bot = Bot(using_server=server)
 
 
 @bot.state("Hello State")
@@ -69,3 +71,5 @@ bot.add_post_processing_function(MyPostProcessing())
 bot.add_trigger(MyTrigger())
 
 bot.run(port=8050)
+
+application = server.get_application()
